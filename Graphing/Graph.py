@@ -1,58 +1,44 @@
-class Vertex:
-    def __init__(self, key):
-        self.id = key
-        self.connectedTo = {}   #where the key of the dictionary is Vertex， and the value is the weight of the edge
+from enum import Enum
+from collections import OrderedDict
 
-    def addNeighbour(self, nbr, weight=0):
-        self.connectedTo[nbr] = weight
+class State(Enum):
+    unvisited = 1 
+    visited = 2 
+    visiting = 3 
 
-    def getConnections(self):
-        return self.connectedTo.keys()
-
-    def getId(self):
-        return self.id
-
-    def getWeight(self, nbr):   #nbr of type Vertex
-        return self.connectedTo[nbr]
+class Node:
+    def __init__(self, num):
+        self.num = num
+        self.visit_state = State.unvisited
+        self.adjacent = OrderedDict() #key = node, value = weight
 
     def __str__(self):
-        return str(self.id) + ' connected to: ' + str([x.id for x in self.connectedTo])
+        return str(self.num)
 
 class Graph:
-    # implement graph as an adjency list
-
+    #implement graph as an adgency list
     def __init__(self):
-        self.vertList = {}
-        self.numVertices = 0
+        self.nodes = OrderedDict()
 
-    def addVertex(self, vert):
-        newVertex = Vertex(vert)
-        self.vertList[vert] = newVertex
-        self.numVertices += 1
-
-    def addEdge(self, fromVert, toVert, weight=0):
-        if fromVert not in self.vertList:
-            self.addVertex(fromVert)
-        if toVert not in self.vertList:
-            self.addVertex(toVert)
-        self.vertList[fromVert].addNeighbour(self.vertList[toVert],weight)
-        self.vertList[toVert].addNeighbour(self.vertList[fromVert],weight)
-        # should I add this two way connection?
-    def getVertex(self, vertKey):
-        if vertKey in self.vertList:
-            return self.vertList[vertKey]
-        else:
-            return None
-
-    def getVertices():
-        return self.vertList.keys()
-
+    # this allows us to use in method, like for object in Graph, meaning for object in self.vertList.values()
     def __iter__(self):
-        return iter(self.vertList.values())
-        # this allows us to use in method, like for object in Graph, meaning for object in self.vertList.values()
+        return iter(self.adjacent.values())
 
-    def __contains__(self, n):
-        return n in self.vertList
+    def __contains__(self, node):
+        return node in self.adjacent
 
+    def add_node(self, num):
+        node = Node(num)
+        self.nodes[num] = node
+        return node 
 
+    def add_edge(self, source, dest, weight=0):
 
+        # taken into account when the source and dest are not in the nodes
+        if source not in self.nodes:
+            self.add_node(source)
+        if dest not in self.nodes:
+            self.add_node(dest)
+
+        self.nodes[source].adjacent[self.nodes[dest]] = weight
+        self.nodes[dest].adjacent[self.nodes[source]] = weight
