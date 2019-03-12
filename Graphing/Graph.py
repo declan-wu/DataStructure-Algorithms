@@ -22,7 +22,7 @@ class Graph:
 
     # this allows us to use in method, like for object in Graph, meaning for object in self.vertList.values()
     def __iter__(self):
-        return iter(self.adjacent.values())
+        return iter(self.nodes.values())
 
     def __contains__(self, node):
         return node in self.adjacent
