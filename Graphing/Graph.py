@@ -10,22 +10,25 @@ class Node:
     def __init__(self, num):
         self.num = num
         self.visit_state = State.unvisited
-        self.adjacent = OrderedDict() #key = node, value = weight
+        self.connectedTo = OrderedDict() #key = node, value = weight
 
     def __str__(self):
         return str(self.num)
 
+    def getConnections(self):
+        return [i.num for i in self.connectedTo.keys()]
+
+# This class represents a directed graph using adjacency list representation
 class Graph:
-    #implement graph as an adgency list
     def __init__(self):
         self.nodes = OrderedDict()
 
     # this allows us to use in method, like for object in Graph, meaning for object in self.vertList.values()
     def __iter__(self):
-        return iter(self.adjacent.values())
+        return iter(self.nodes.values())
 
     def __contains__(self, node):
-        return node in self.adjacent
+        return node in self.nodes
 
     def add_node(self, num):
         node = Node(num)
@@ -40,5 +43,22 @@ class Graph:
         if dest not in self.nodes:
             self.add_node(dest)
 
-        self.nodes[source].adjacent[self.nodes[dest]] = weight
-        self.nodes[dest].adjacent[self.nodes[source]] = weight
+        self.nodes[source].connectedTo[self.nodes[dest]] = weight
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
