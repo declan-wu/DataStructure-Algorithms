@@ -1,4 +1,14 @@
 # Python already has a built-in dictionary object that serves as a Hash Table, this class is just for my own learning purpose
+# Here's a reference of how python's built-in dictionary is implemented, https://stackoverflow.com/questions/327311/how-are-pythons-built-in-dictionaries-implemented
+# Ways to solve hash collision: 
+    # linear probing (also called open addressing), 
+    # chaining (each entry is like a linked list, so every key that maps to the hashcode will be stored at that index),
+    # Double hashing technique, using two hash functions (index = h1(k); while( val(index) is occupied): index = (index + h2(k)) mod n)
+
+#-----------------------------------#-----------------------------------
+# space complexity of every reasonable hash table is O(n)
+# time complexity is O(1) for search, inserstion, deletion
+#-----------------------------------#-----------------------------------
 
 class HashTable(object):
 

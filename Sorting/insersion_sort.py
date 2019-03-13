@@ -5,7 +5,7 @@
 #-----------------------------------
 
 # Description: 
-#   Select the first element in the unsorted array, in the first round, index 1 
+#   Select the first element in the unsorted array, and insert it in the sorted array(the section of the array before that element) in the first round, index 1 
 
 # Python code:
 

@@ -28,44 +28,89 @@ def _quicksort(array, start, stop):
                 right -= 1
         _quicksort(array, start, right)
         _quicksort(array, left, stop)
+
+#-----------------------------------#-----------------------------------
+
+def quick_sort(arr):
+    quick_sort_help(arr, 0, len(arr) - 1)
+
+def quick_sort_help(arr, first, last):
+    if first < last:
+        split_point = partition(arr, first, last)
+
+        quick_sort_help(arr, first, split_point - 1)
+        quick_sort_help(arr, split_point + 1, last)
+        
+def partition(arr, first, last):
+    pivot_value = arr[first]    # to assist splitting the array
+    leftmark = first + 1
+    rightmark = last
+    done = False
+
+    while not done:
+        while leftmark <= rightmark and arr[leftmark] <= pivot_value:
+            leftmark += 1
+        while leftmark <= rightmark and arr[rightmark] >= pivot_value:
+            rightmark += 1
+        if rightmark < leftmark:
+            done = True
+        else:
+            temp = arr[leftmark]
+            arr[leftmark] = arr[rightmark]
+            arr[rightmark] = temp
+            
+        temp = arr[first]
+        arr[first] = arr[rightmark]
+        arr[rightmark] = temp
+
+    return rightmark
         
 #-----------------------------------#-----------------------------------
-# INCOMPLETE!!!
-# This quick sort uses middle element as a pivot
-def quick_sort(arr): 
-    mid_idx = len(arr) // 2     # as the pivot index
-    pivot = arr[mid_idx]
-    i, j = 0, len(arr)-1     # i is start and j is end
+import statistics
+# def median(a, first, last, middle):
+#     if a[first] < a[last]:
+#         return first if a[middle] < a[first] else middle if a[middle] < a[last] else last
+#     else:
+#         return last if a[middle] < a[last] else middle if a[middle] < a[first] else first
 
-    while i <= j:
 
-        while arr[i] < pivot and i < mid_idx:
-            i += 1
-        while arr[j] > pivot and j > mid_idx:
-            j -= 1
+def quick_sort_median(lst):
+    quick_sort_median_helper(lst,0,len(lst) - 1)
+    
+def quick_sort_median_helper(lst,first,last):
+    if first < last:
+        splitpoint = partition_median(lst,first,last)
+        quick_sort_median_helper(lst,first,splitpoint - 1)
+        quick_sort_median_helper(lst,splitpoint + 1,last)
+    
 
-        # meaning we got to a point where an element on the left is greater than pivot
-        # or a point on the right is less than pivot, or one/both side is aleady in correct position
-        if i < j and j == mid_idx:
-            # meaning the right side is in order
-            arr[i], arr[j] = arr[j], arr[i]    
-            i += 1
-            j -= 1
-            mid_idx = j
-            pivot = arr[mid_idx]
 
-        if i < j and i == mid_idx:
-            # meaning the left side is in order
-            
-        if i == j and i == mid_idx:
-            return i
-            
-        if i < j:
-            arr[i], arr[j] = arr[j], arr[i]    
-            i += 1
-            j -= 1
-#-----------------------------------#-----------------------------------
-            
+def partition_median(lst,first,last):
+    pivotindex = statistics.median([first, last, (first + last) // 2])
+    lst[first], lst[pivotindex] = lst[pivotindex], lst[first]
+    pivotvalue = lst[first]
+    leftmark = first + 1
+    rightmark = last
+    done = False
+    while not done:
+        while leftmark <= rightmark and lst[leftmark] <= pivotvalue:
+            leftmark += 1
+        while lst[rightmark] >= pivotvalue and rightmark >= leftmark:
+            rightmark -= 1
+        if rightmark < leftmark:
+            done = True
+        else:
+            temp = lst[leftmark]
+            lst[leftmark] = lst[rightmark]
+            lst[rightmark] = temp
+
+    temp = lst[first]
+    lst[first] = lst[rightmark]
+    lst[rightmark] = temp
+
+    return rightmark
+
+#-----------------------------------#-----------------------------------           
 # Time Complexity: 
     # Big Theta (n2) - Worst Case: 
     #     The worst case occurs when the partition process always picks greatest or smallest element as pivot. 

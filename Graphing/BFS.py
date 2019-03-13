@@ -1,4 +1,4 @@
-
+# This article is excellent in explaining DFS and BFS: https://jeremykun.com/2013/01/22/depth-and-breadth-first-search/
 def bfs(graph, start):
     visited = []
     queue = [start]
