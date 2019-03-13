@@ -1,7 +1,6 @@
 # mark the current vertex as being visited
 # explore each adjecent vertex that is not included in the visited set
 
-from .graph import Graph 
 
 def dfs(graph, start):
     visited = []
