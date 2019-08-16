@@ -1,0 +1,10 @@
+Underlying properties of a tree:
+    adding an edge that connects two vertices creates an unique cycle
+    removing an edge from a tree breaks it into two separate subtrees
+
+Cut property:
+    A cut of a graph is a partition of its vertices into two non-empty disjoint
+sets. 
+    A crossing edge is the edge that connects one vertice in one set and another
+vertice in another set. 
+    And typically we specify a cut by specifying two sets of vertices. 
