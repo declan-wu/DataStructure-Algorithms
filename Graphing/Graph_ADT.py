@@ -1,22 +1,25 @@
 from enum import Enum
 from collections import OrderedDict
 
+
 class State(Enum):
-    unvisited = 1 
-    visited = 2 
-    visiting = 3 
+    unvisited = 1
+    visited = 2
+    visiting = 3
+
 
 class Node:
     def __init__(self, num):
         self.num = num
         self.visit_state = State.unvisited
-        self.connectedTo = OrderedDict() #key = node, value = weight
+        self.connectedTo = OrderedDict()  # key = node, value = weight
 
     def __str__(self):
         return str(self.num)
 
     def getConnections(self):
         return [i.num for i in self.connectedTo.keys()]
+
 
 # This class represents a directed graph using adjacency list representation
 class Graph:
@@ -33,10 +36,9 @@ class Graph:
     def add_node(self, num):
         node = Node(num)
         self.nodes[num] = node
-        return node 
+        return node
 
     def add_edge(self, source, dest, weight=0):
-
         # taken into account when the source and dest are not in the nodes
         if source not in self.nodes:
             self.add_node(source)
@@ -44,13 +46,3 @@ class Graph:
             self.add_node(dest)
 
         self.nodes[source].connectedTo[self.nodes[dest]] = weight
- 
-
-
-
-
-
-
-
-
-

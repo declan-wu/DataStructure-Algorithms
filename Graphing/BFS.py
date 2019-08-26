@@ -1,4 +1,7 @@
 # This article is excellent in explaining DFS and BFS: https://jeremykun.com/2013/01/22/depth-and-breadth-first-search/
+import Graphing.Graph_ADT
+
+
 def bfs(graph, start):
     visited = []
     queue = [start]
@@ -7,9 +10,11 @@ def bfs(graph, start):
         vertex = queue.pop(0)
         if vertex not in visited:
             visited.append(vertex)
-            queue.extend(set(graph.nodes[vertex].getConnections()) - set(visited))
-            
+            queue.extend(
+                set(graph.nodes[vertex].getConnections()) - set(visited))
+
     return visited
+
 
 def bfs_paths(graph, start, goal):
     result = []
@@ -19,11 +24,12 @@ def bfs_paths(graph, start, goal):
         (vertex, path) = queue.pop(0)
         for nxt in set(graph.nodes[vertex].getConnections()) - set(path):
             if nxt == goal:
-                result.append(path + [nxt]) # could use yield path + [nxt]
+                result.append(path + [nxt])  # could use yield path + [nxt]
             else:
                 queue.append((nxt, path + [nxt]))
 
     return result
+
 
 def shortest_path(graph, start, goal):
     try:
@@ -32,23 +38,13 @@ def shortest_path(graph, start, goal):
         return None
 
 
-g = Graph() 
-g.add_edge(0, 1) 
-g.add_edge(0, 2) 
-g.add_edge(1, 2) 
-g.add_edge(1, 5) 
-g.add_edge(2, 3) 
-g.add_edge(3, 3) 
+g = Graph()
+g.add_edge(0, 1)
+g.add_edge(0, 2)
+g.add_edge(1, 2)
+g.add_edge(1, 5)
+g.add_edge(2, 3)
+g.add_edge(3, 3)
 g.add_edge(3, 5)
 
 print(shortest_path(g, 0, 5))
-
-
-
-
-
-
-
-
-
-
